@@ -1,0 +1,78 @@
+{
+  "family": "chat-engine-task",
+  "containerDefinitions": [
+    {
+      "image": "234464546150.dkr.ecr.us-east-1.amazonaws.com/chat-engine:latest",
+      "name": "chat-engine",
+      "memory": 400,
+      "cpu": 500,	
+      "essential": true,
+      "mountPoints": [
+        {
+          "containerPath": "/var/run/docker.sock",
+          "sourceVolume": "dockersock",
+          "readOnly": true
+        }
+      ],
+      "environment": [
+        {
+          "name": "SERVICE_80_NAME",
+          "value": "yo-chat"
+        },
+        {
+          "name": "SERVICE_80_CHECK_HTTP",
+          "value": "/"
+        },
+        {
+          "name": "SERVICE_80_CHECK_INTERVAL",
+          "value": "5s"
+        },
+        {
+          "name": "SERVICE_TAGS",
+          "value": "urlprefix-/"
+        },
+        {
+          "name": "THUNDER_PORT",
+          "value": "80"
+        },
+        {
+          "name": "THUNDER_SESS_IP",
+          "value": "10.10.0.55"
+        },
+        {
+          "name": "THUNDER_IP",
+          "value": "10.10.0.55"
+        },
+        {
+          "name": "THUNDER_SYNC_IP",
+          "value": "10.10.0.119"
+        },
+        {
+          "name": "THUNDER_MSG_IP",
+          "value": "10.10.0.206"
+        },
+        {
+          "name": "THUNDER_ENV",
+          "value": "PRODUCTION"
+        }
+      ],
+      "portMappings": [
+        {
+          "hostPort": 0,
+          "containerPort": 80,
+          "protocol": "tcp"
+        }
+      ]
+    }
+  ],
+  "volumes": [
+    {
+      "host": {
+        "sourcePath": "/var/run/docker.sock"
+      },
+      "name": "dockersock"
+    }
+  ]
+}
+
+
