@@ -9,3 +9,8 @@
 # Last Modified: 								#
 #												#
 #################################################
+
+REPO_NAME="chat-engine"
+OUTPUT=`aws ecr create-repository --region us-east-1 --repository-name $REPO_NAME --output text | awk '{print $5}'`
+
+echo "Your Repository name is: $OUTPUT"
